@@ -1,0 +1,42 @@
+upstream <%= @name %> {
+<% @upstream.each do |app_server| %>
+  server <%= app_server %>;
+<% end %>
+}
+
+server {
+  listen      <%= @listen.join(", ") %>;
+  server_name <%= @name %>;
+  <% if @ssl %>
+  ssl                  on;
+  ssl_certificate      <%= @ssl_cert %>;
+  ssl_certificate_key  <%= @ssl_cert_key %>;
+  <% end %>
+
+  access_log  <%= @access_log %>;
+  error_log   <%= @error_log %>;
+  root        <%= @root %>;
+  index  index.html;
+
+  location / {
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_read_timeout 300;
+
+    if (-f $request_filename/index.html) {
+      rewrite (.*) $1/index.html break;
+    }
+
+    if (-f $request_filename.html) {
+      rewrite (.*) $1.html break;
+    }
+
+    if (!-f $request_filename) {
+      proxy_pass http://<%= @name %>;
+      break;
+    }
+  }
+
+}

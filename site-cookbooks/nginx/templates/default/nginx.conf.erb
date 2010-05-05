@@ -1,0 +1,37 @@
+user <%= @node[:nginx][:user] %>;
+worker_processes  <%= @node[:nginx][:worker][:processes] %>;
+
+error_log  <%= @node[:nginx][:log_dir] %>/error.log;
+pid        /var/run/nginx.pid;
+
+events {
+  worker_connections  <%= @node[:nginx][:worker][:connections] %>;
+}
+
+http {
+  include       /etc/nginx/mime.types;
+  default_type  application/octet-stream;
+
+  access_log	<%= @node[:nginx][:log_dir] %>/access.log;
+
+  sendfile on;
+  tcp_nopush on;
+  tcp_nodelay on;
+
+  <% if @node[:nginx][:keepalive] %>
+  keepalive_timeout  <%= @node[:nginx][:keepalive][:timeout] %>;
+  <% end %>
+
+  gzip  <%= @node[:nginx][:gzip] ? "on" : "off" %>;
+  <% if @node[:nginx][:gzip] %>
+  gzip_http_version <%= @node[:nginx][:gzip][:http_version] %>;
+  gzip_comp_level <%= @node[:nginx][:gzip][:comp_level] %>;
+  gzip_proxied <%= @node[:nginx][:gzip][:proxied] %>;
+  gzip_types <%= @node[:nginx][:gzip][:types].join(' ') %>;
+  <% end %>
+
+  server_names_hash_bucket_size <%= @node[:nginx][:server_names_hash_bucket_size] %>;
+
+  include /etc/nginx/conf.d/*.conf;
+  include /etc/nginx/sites-enabled/*;
+}

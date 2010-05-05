@@ -1,0 +1,6 @@
+server {
+  listen      <%= @listen.join(", ") %>;
+  server_name <%= @name %>;
+  rewrite ^/(.*) <%= @redirect_url %> permanent;
+}
+

@@ -1,0 +1,17 @@
+server {
+  listen   80;
+  passenger_enabled on;
+  client_max_body_size 50M;
+  server_name  <%= @params[:server_name] %> <%= @params[:server_aliases].join(" ") %>;
+  root <%= @params[:docroot] %>
+  access_log  <%= @node[:nginx][:log_dir] %>/<%= @params[:name]%>.access.log;
+
+  if (-f $document_root/system/maintenance.html) {
+    rewrite  ^(.*)$  /system/maintenance.html last;
+    break;
+  }
+
+  if (-f $request_filename) { 
+    break; 
+  }
+}
