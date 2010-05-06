@@ -1,4 +1,5 @@
 .rake_test_cache
 *.sw?
 .DS_Store
+README.html
 

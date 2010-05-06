@@ -1,0 +1,12 @@
+= DESCRIPTION:
+
+The Hudson CI server: http://hudson-ci.org/
+
+= REQUIREMENTS:
+
+This recipie currenly only works with Ubuntu.
+
+= ATTRIBUTES: 
+
+= USAGE:
+
