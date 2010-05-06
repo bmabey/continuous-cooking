@@ -15,6 +15,7 @@ site/docs for more info on how Vagrant works.
 To use vagrant you will need to have installed [VirtualBox](http://www.virtualbox.org/wiki/Downloads) *and ran it once*.  After that
 these commands should get you up and running:
 
+    git submodule update --init
     gem install vagrant
     vagrant box add lucid64 http://s3.lds.li/vagrant/lucid64.box
     vagrant up
@@ -45,4 +46,6 @@ If vagrant throws an error on `#to_json` then try downgrading the json gems:
     gem uninstall json # uninstall the more recent versions
     gem uninstall json_pure # uninstall the more recent versions
 
-
+## TODO
+ * Gitosis
+ * Gerrit
