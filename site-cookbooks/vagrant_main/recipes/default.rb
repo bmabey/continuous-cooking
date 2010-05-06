@@ -1,1 +1,1 @@
-require_recipe "hudson"
+require_recipe "hudson::nginx"

@@ -15,7 +15,9 @@ server {
 
   access_log  <%= @access_log %>;
   error_log   <%= @error_log %>;
+  <% if @root %>
   root        <%= @root %>;
+  <% end %>
   index  index.html;
 
   location / {
