@@ -2,4 +2,4 @@
 *.sw?
 .DS_Store
 README.html
-
+.vagrant
