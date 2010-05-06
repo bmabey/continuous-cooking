@@ -1,0 +1,26 @@
+-- clone admin repository
+
+git clone gitosis@git.heavywater.ca:gitosis-admin.git
+
+-- gitosis.conf add:
+
+[group developers]
+writable = <%= @repository_name %>
+members = <%= @key_id %>
+
+-- commit admin changes
+
+git commit -a -m "Allow @key_id write access"
+git push
+
+-- create a new repository
+
+mkdir <%= @repository_name %>
+cd <%= @repository_name %>
+git init
+git remote add origin gitosis@git.heavywater.ca:<%= @repository_name %>.git
+touch test
+git add .
+git commit -m 'test commit'
+git push origin master:refs/heads/master
+
