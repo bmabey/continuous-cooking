@@ -18,10 +18,10 @@ these commands should get you up and running:
 
 This will take a while the first time since it is downloading all the needed packages. If this runs
 successfully you should be able to hit Hudson at http://localhost:4088.  You can also ssh into the box
-with "vagrant ssh".  Again, refer to Vagrant's docs for more info.
+with `vagrant ssh`.  Again, refer to Vagrant's docs for more info.
 
-To rerun chef you can either type "vagrant reload" on the host machine or go to "/tmp/vagrant_chef" on
-the VM and type "sudo chef-solo -c solo.rb -j dna.json". I like running chef-solo on the VM since the
+To rerun chef you can either type `vagrant reload` on the host machine or go to `/tmp/vagrant_chef` on
+the VM and type `sudo chef-solo -c solo.rb -j dna.json`. I like running chef-solo on the VM since the
 reload command actually takes the VM down, brings it up, and remounts everything.
 
 # Troubleshooting
