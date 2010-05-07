@@ -2,7 +2,7 @@
 
 Chef recipes for continuous integration, code review, and overall code management.
 The goal is to have recipes for Gitosis, Hudson, Gerrit, and perhaps more.
-This is a work in progress and so far only Hudson is done.
+This is a work in progress...
 
 I only aim to support ubuntu and nginx, but adding apache or other platforms should
 be easy if you have the need.
@@ -47,5 +47,4 @@ If vagrant throws an error on `#to_json` then try downgrading the json gems:
     gem uninstall json_pure # uninstall the more recent versions
 
 ## TODO
- * Gitosis
  * Gerrit
