@@ -1,0 +1,1 @@
+set[:gitosis][:admin] = "git"
