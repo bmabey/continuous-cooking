@@ -1,1 +1,1 @@
-set_unless[:gitosis][:admin] = "dje"
+set_unless[:gitosis][:admin] = "root"

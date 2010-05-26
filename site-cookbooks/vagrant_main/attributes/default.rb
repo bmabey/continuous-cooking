@@ -1,1 +1,1 @@
-set[:gitosis][:admin] = "git"
+set[:gitosis][:admin] = "vagrant"
