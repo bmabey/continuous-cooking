@@ -11,6 +11,7 @@ template "/home/hudson/.gitconfig" do
   only_if "which git"
 end
 
+
 case node.platform
 when "ubuntu"
   include_recipe "apt"
@@ -29,4 +30,8 @@ end
 
 package "hudson" do
   action :upgrade
+end
+
+link "/home/hudson/lib" do
+  to "/var/lib/hudson"
 end
