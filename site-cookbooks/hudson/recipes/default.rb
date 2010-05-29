@@ -1,3 +1,9 @@
+directory "/home/hudson" do
+  recursive true
+  owner "hudson"
+  mode 0700
+end
+
 case node.platform
 when "ubuntu"
   include_recipe "apt"

@@ -1,3 +1,5 @@
+# Originally taken from Corey Donohoe's cider/smeagol
+# Modified by Ben Mabey to be non-cider specific and refactored into the rvm_user definition
 maintainer       "atmos.org"
 maintainer_email "atmos@atmos.org"
 license          "MIT"
