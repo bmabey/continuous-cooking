@@ -19,6 +19,11 @@ package "hudson" do
   action :upgrade
 end
 
+service "hudson" do
+  supports :status => true, :restart => true, :start => true, :stop => true
+  action :start
+end
+
 hudson_plugin node[:hudson][:plugins]
 
 directory "/home/hudson" do

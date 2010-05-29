@@ -26,6 +26,10 @@ define :hudson_plugin do
     end
   end
 
-  execute("/etc/init.d/hudson restart") unless plugins_to_install.empty?
+  unless plugins_to_install.empty?
+    service "hudson" do
+      action :restart
+    end
+  end
 end
 
