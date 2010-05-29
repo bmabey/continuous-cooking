@@ -1,20 +1,47 @@
 define :rvm_user, :user => nil, :home => nil, :rubies => [], :gems => {}, :packages => [], :default_ruby => nil do
 
+
   package "curl"
+  include_recipe "git"
+
+  # TODO: need to ensure proper ordering if 1.9.2, etc is requested...
+  #*  If you wish to install rbx and/or any MRI head (eg. 1.9.2-head) then you must install and use rvm 1.8.7 first.
+
+  # *  For MRI & ree (if you wish to use it) you will need:
+  %w[bison build-essential zlib1g zlib1g-dev libssl-dev libreadline5-dev 
+     libreadline6-dev libxml2-dev git-core subversion autoconf].each do |p|
+    package p
+  end
+  # TODO: add JRuby deps only if jruby is lised as a dep:
+  # *  For JRuby (if you wish to use it) you will need:
+  #    $ aptitude install curl sun-java6-bin sun-java6-jre sun-java6-jdk
+  #
 
   params[:home] ||= "/home/#{params[:user]}"
-  rvm_script  = params[:home] + "/.rvm/scripts/rvm"
+  rvm_path  = params[:home] + "/.rvm"
+  rvm_script  = rvm_path + "/scripts/rvm"
   default_ruby = params[:default_ruby]
   rubies = (params[:rubies] + [default_ruby]).uniq
 
   # this works with execute and script resources
-  run_as_rvm_user = lambda { |code| "su - #{params[:user]} -c bash <<END\nsource #{rvm_script}\n#{code}\nEND" }
+  run_as_rvm_user = lambda { |code|
+    "su - #{params[:user]} -c bash <<END\nexport rvm_path=#{rvm_path}\nsource #{rvm_script}\n#{code}\nEND" }
 
-  execute "install rvm for #{params[:user]}" do
-    user params[:user]
-    environment "HOME" => params[:home]
-    command "bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head"
-    not_if  "test -d #{params[:home]}/.rvm"
+  if File.directory? rvm_path
+    log("Skipping RVM installation for #{params[:user]} since RVM was detected") { level :debug }
+  else
+    remote_file "rvm-install" do
+      path "/tmp/rvm-install"
+      source "http://rvm.beginrescueend.com/releases/rvm-install-head"
+      not_if  "test -f /tmp/rvm-install"
+      mode 0755
+    end
+
+    execute "install rvm for #{params[:user]}" do
+      user params[:user]
+      environment "HOME" => params[:home]
+      command "/tmp/rvm-install"
+    end
   end
 
   # rvm doesn't provide a way to see what packages are installed (yet) so this is needed to tell...
@@ -23,14 +50,17 @@ define :rvm_user, :user => nil, :home => nil, :rubies => [], :gems => {}, :packa
   params[:packages].each do |rvm_package|
     execute "install #{rvm_package} with and for rvm as #{params[:user]}" do
       command run_as_rvm_user["rvm package install #{rvm_package}"]
-      not_if run_as_rvm_user["test -f #{params[:home]}/.rvm/usr/lib/#{rvm_package_libs[rvm_package]}"]
+      not_if run_as_rvm_user["test -f #{rvm_path}/usr/lib/#{rvm_package_libs[rvm_package]}"]
     end
   end
+
+  # TODO: if packages are installed we need to use them when installing the rubies...
 
   execute "update #{params[:user]}'s rvm to the latest stable version" do
     command run_as_rvm_user["rvm update -—head"]
   end
 
+  # TODO: use 'rmv list' to uninstall the uneeded ones and install the new ones
   rubies.each do |ruby_version|
     execute "installing ruby #{ruby_version}" do
       command(run_as_rvm_user["rvm install #{ruby_version}"])
