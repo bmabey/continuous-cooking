@@ -1,11 +1,30 @@
 # Continuous Cooking
 
 Chef recipes for continuous integration, code review, and overall code management.
-The goal is to have recipes for Gitosis, Hudson, Gerrit, and perhaps more.
+The goal is to have recipes for [Gitosis][gitosis], [Hudson][hudson], [Gerrit][gerrit], and perhaps more.
 This is a work in progress...
 
 I only aim to support ubuntu and nginx, but adding apache or other platforms should
 be easy if you have the need.
+
+## Whats Done
+* Hudson
+
+  * Ability to declare what plugins to install
+
+    * Common base ones are installed by default (i.e git) and are configurable via an attribute.
+
+  * nginx recipe for proxying
+  * Ruby recipe to add RVM support to hudson user
+    * Flexible RVM cookbook to declare needed ruby versions and base gems (i.e bundler).
+    * Installs common ruby plugins.
+ * Gitosis (see below on how to use)
+
+## TODO
+ * Gerrit
+ * Cloud bootstrapping script
+ * Documentation
+ * Create/publish base vagrant image?
 
 ## Hacking
 
@@ -39,7 +58,7 @@ One easy way to do this is with the ghost gem:
 
 To rerun chef you can either type `./vagrant reload` or `./vagrant provision`.  The `provision` command is much faster and is preferred.  The `reload` command will restart the VM, remount the FS, and setup the port forwarding.
 
-## Gitosis
+### Gitosis
 
 To experiment with gitosis you will need to have vagrant write to your ssh config:
 
@@ -51,6 +70,6 @@ Now you will be able to clone the gitosis repo:
 
 Once that is done you can modify the `gitosis.conf` as you normally would to manage repositories.
 
-
-## TODO
- * Gerrit
+[gitosis]: http://www.ohloh.net/p/gitosis "Gitosis - git management"
+[hudson]: http://hudson-ci.org/ "Hudson - CI Server"
+[gerrit]: http://code.google.com/p/gerrit/ "Gerrit - Git-based code-review tool"
