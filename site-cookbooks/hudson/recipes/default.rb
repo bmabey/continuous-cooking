@@ -1,17 +1,3 @@
-directory "/home/hudson" do
-  recursive true
-  owner "hudson"
-  mode 0700
-end
-
-# git requires that a user be set to checkout...
-template "/home/hudson/.gitconfig" do
-  owner "hudson"
-  source "dot.gitconfig.erb"
-  only_if "which git"
-end
-
-
 case node.platform
 when "ubuntu"
   include_recipe "apt"
@@ -33,8 +19,21 @@ package "hudson" do
   action :upgrade
 end
 
+hudson_plugin node[:hudson][:plugins]
+
+directory "/home/hudson" do
+  recursive true
+  owner "hudson"
+  mode 0700
+end
+
+# git requires that a user be set to checkout...
+template "/home/hudson/.gitconfig" do
+  owner "hudson"
+  source "dot.gitconfig.erb"
+  only_if "which git"
+end
+
 link "/home/hudson/lib" do
   to "/var/lib/hudson"
 end
-
-hudson_plugin node[:hudson][:plugins]
