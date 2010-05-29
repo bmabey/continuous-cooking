@@ -35,3 +35,5 @@ end
 link "/home/hudson/lib" do
   to "/var/lib/hudson"
 end
+
+hudson_plugin node[:hudson][:plugins]

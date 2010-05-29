@@ -1,8 +1,4 @@
-# Originally taken from Corey Donohoe's cider/smeagol rvm cookbook
-# Modified and added to by Ben Mabey
-#
 include_recipe "hudson"
-
 
 rvm_user do
   user "hudson"
@@ -12,4 +8,4 @@ rvm_user do
   gems :all_versions => {'bundler' => '0.9.25', 'bundler08' => '0.8.5'}
 end
 
-
+hudson_plugin "ruby" => "1.2", "rubyMetrics" => "1.4", "rake" => "1.6.3"
