@@ -4,6 +4,13 @@ directory "/home/hudson" do
   mode 0700
 end
 
+# git requires that a user be set to checkout...
+template "/home/hudson/.gitconfig" do
+  owner "hudson"
+  source "dot.gitconfig.erb"
+  only_if "which git"
+end
+
 case node.platform
 when "ubuntu"
   include_recipe "apt"
