@@ -1,6 +1,14 @@
 define :hudson_plugin do
   plugin_dir = "/var/lib/hudson/plugins"
 
+  # When bootingstrapping a race condition can arrise where this dir hasn't been created yet...
+  directory plugin_dir do
+    recursive true
+    owner "hudson"
+    mode 0700
+    not_if "test -d #{plugin_dir}"
+  end
+
   plugins_to_install = params[:name].select do |plugin_name, version|
     manifest = "#{plugin_dir}/#{plugin_name}/META-INF/MANIFEST.MF"
     !(File.exist?(manifest) && File.read(manifest)["Plugin-Version: #{version.strip}"])
