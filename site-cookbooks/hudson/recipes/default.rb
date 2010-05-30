@@ -21,6 +21,7 @@ end
 
 service "hudson" do
   supports :status => true, :restart => true, :start => true, :stop => true
+  status_command "/etc/init.d/hudson status | grep 'Hudson is running'"
   action :start
 end
 
