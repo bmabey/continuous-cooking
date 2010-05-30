@@ -2,10 +2,8 @@
 
 Chef recipes for continuous integration, code review, and overall code management.
 The goal is to have recipes for [Gitosis][gitosis], [Hudson][hudson], [Gerrit][gerrit], and perhaps more.
-This is a work in progress...
 
-I only aim to support ubuntu and nginx, but adding apache or other platforms should
-be easy if you have the need.
+I only aim to support ubuntu and nginx, but adding apache or other platforms should be easy if you have the need.
 
 ## Whats Done
 * Hudson
@@ -46,7 +44,7 @@ Note: Prefixing all your `vagrant` commands with `bundle exec ` gets old fast so
 This will take a while the first time since it is downloading all the needed packages. If this runs
 successfully you should be able to hit the various services:
 
- * **Hudson** - http://localhost:4088
+ * **Hudson** - http://localhost:4088 (see Troubleshooting section if it doesn't appear to be running)
  * **Hudson via nginx** - http://hudson.codebox:4080
  * **ssh** - via `./vagrant ssh`
 
@@ -70,6 +68,11 @@ Now you will be able to clone the gitosis repo:
 
 Once that is done you can modify the `gitosis.conf` as you normally would to manage repositories.
 
+### Troubleshooting
+
+ * **Hudson isn't running after `./vagrant up`** - When bootstrapping for the first time Hudson sometimes fails to restart after installing the plugins (something about being restarted too soon I think).  If this happens you simply need to restart the service by `ssh`ing in and typing `/etc/init.d/hudson restart`.
+
 [gitosis]: http://www.ohloh.net/p/gitosis "Gitosis - git management"
 [hudson]: http://hudson-ci.org/ "Hudson - CI Server"
 [gerrit]: http://code.google.com/p/gerrit/ "Gerrit - Git-based code-review tool"
+[rvm]: http://rvm.beginrescueend.com/ "Ruby Version Manager"
