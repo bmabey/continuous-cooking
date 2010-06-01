@@ -1,0 +1,43 @@
+--- 
+specs: 
+- rake: 
+    version: 0.8.7
+- archive-tar-minitar: 
+    version: 0.5.2
+- ffi: 
+    version: 0.6.3
+- json: 
+    version: 1.4.3
+- mario: 
+    version: 0.0.6
+- net-ssh: 
+    version: 2.0.22
+- net-scp: 
+    version: 1.0.2
+- virtualbox: 
+    version: 0.6.2.dev
+    source: 1
+- vagrant: 
+    version: 0.3.5.dev
+    source: 0
+hash: 464af9eb009cc2bd830a8931edb1134c425d6bd1
+sources: 
+- Git: 
+    uri: http://github.com/mitchellh/vagrant.git
+    git: http://github.com/mitchellh/vagrant.git
+    ref: 85f4fb230d3edaf14f9af34d71119ef64e82fe32
+- Git: 
+    uri: http://github.com/mitchellh/virtualbox.git
+    git: http://github.com/mitchellh/virtualbox.git
+    ref: 56606f2d6c328cd76010af2217b8ca4150a2e9d9
+- Rubygems: 
+    uri: http://gemcutter.org
+dependencies: 
+  virtualbox: 
+    version: ">= 0"
+    group: 
+    - :default
+  vagrant: 
+    version: ">= 0"
+    group: 
+    - :default
