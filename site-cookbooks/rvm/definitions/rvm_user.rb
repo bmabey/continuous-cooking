@@ -87,7 +87,7 @@ define :rvm_user, :user => nil, :home => nil, :rubies => [], :gems => {}, :packa
 #
   rubies.each do |ruby_version|
     gems = params[:gems][ruby_version] || {}
-    (params[:gems][:all_versions] || {}).merge(gems).each do |name, version|
+    (params[:gems]["all_versions"].dup || {}).to_hash.merge(gems).each do |name, version|
       execute "install as #{params[:user]} gem: #{name} -> #{version} for ruby #{ruby_version}" do
         command(run_as_rvm_user[<<-EOS])
           rvm use #{ruby_version}
