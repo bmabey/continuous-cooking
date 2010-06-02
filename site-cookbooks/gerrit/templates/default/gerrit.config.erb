@@ -1,0 +1,20 @@
+[gerrit]
+  basePath = <%= node[:gerrit][:base_path] %>
+  canonicalWebUrl = <%= node[:gerrit][:canonical_web_url] %>
+[database]
+  type = H2
+  database = db/ReviewDB
+[auth]
+  type = OPENID
+[sendemail]
+  smtpServer = localhost
+[container]
+  user = <%= node[:gerrit][:user] %>
+  javaHome = <%= node[:gerrit][:java_home] %>
+[sshd]
+  listenAddress = <%= node[:gerrit][:sshd_listen_address] %>
+[httpd]
+  listenUrl = proxy-http<%= node[:gerrit][:behind_ssl] ? "s" : "" %>://*:<%= node[:gerrit][:port]%>/
+[cache]
+  directory = cache
+
