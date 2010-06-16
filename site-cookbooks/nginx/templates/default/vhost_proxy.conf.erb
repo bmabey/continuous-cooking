@@ -13,6 +13,7 @@ server {
   ssl_certificate_key  <%= @ssl_cert_key %>;
   <% end %>
 
+
   access_log  <%= @access_log %>;
   error_log   <%= @error_log %>;
   <% if @root %>
@@ -26,6 +27,13 @@ server {
     proxy_set_header Host $http_host;
     proxy_redirect off;
     proxy_read_timeout 300;
+
+    <% if @auth_basic %>
+    auth_basic            "<%= @auth_basic %>";
+    <% end %>
+    <% if @auth_basic_user_file %>
+    auth_basic_user_file  <%= @auth_basic_user_file %>;
+    <% end %>
 
     if (-f $request_filename/index.html) {
       rewrite (.*) $1/index.html break;
