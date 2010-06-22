@@ -26,6 +26,7 @@ I've set up many CI servers in my day.  It is usually the first thing I do at a 
 ## TODO
  * Cloud bootstrapping script
  * Documentation
+ * Maybe add a recipe for [headless browser support](http://blog.kabisa.nl/2010/05/24/headless-cucumbers-and-capybaras-with-selenium-and-hudson/)?
  * Create/publish base vagrant image?
 
    * Maybe have a base image with dummy Hudson/Gerrit projects setup to give idea of workflow?
