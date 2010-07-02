@@ -17,7 +17,7 @@ I've set up many CI servers in my day.  It is usually the first thing I do at a 
     * Common base ones are installed by default (i.e git) and are configurable via an attribute.
 
   * nginx recipe for proxying
-  * Ruby recipe to add RVM support to hudson user
+  * Ruby recipe to add RVM support to hudson user (see [FAQ] for info on how to use it)
     * Flexible RVM cookbook to declare needed ruby versions and base gems (i.e bundler).
     * Installs common ruby plugins.
  * Gitosis (see below on how to use)
@@ -26,6 +26,7 @@ I've set up many CI servers in my day.  It is usually the first thing I do at a 
 ## TODO
  * Cloud bootstrapping script
  * Documentation
+ * Allow Hudson to use the RVM command without requiring every job to source the rvm script each time.
  * Maybe add a recipe for [headless browser support](http://blog.kabisa.nl/2010/05/24/headless-cucumbers-and-capybaras-with-selenium-and-hudson/)?
  * Create/publish base vagrant image?
 
@@ -92,6 +93,9 @@ Please note that using both Gerrit and Gitosis at the same time doesn't really m
 
  * **Gerrit isn't running after `./vagrant up`** - Again, try running the service manually: `sudo /etc/init.d/gerrit restart`.
 
+Please see the wiki's [FAQ] page for more information.
+
+[FAQ]: http://wiki.github.com/bmabey/continuous-cooking/faq
 [gitosis]: http://www.ohloh.net/p/gitosis "Gitosis - git management"
 [hudson]: http://hudson-ci.org/ "Hudson - CI Server"
 [gerrit]: http://code.google.com/p/gerrit/ "Gerrit - Git-based code-review tool"
