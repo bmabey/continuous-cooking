@@ -1,7 +1,7 @@
 Vagrant::Config.run do |config|
   config.vm.provisioner = :chef_solo
   config.chef.cookbooks_path = %w[site-cookbooks cookbooks]
-  config.chef.log_level = :debug
+  #config.chef.log_level = :debug
   config.vm.forward_port "hudson", 8080, 4088
   config.vm.forward_port "gerrit", 7080, 4070
   config.vm.forward_port "nginx", 80, 4080
