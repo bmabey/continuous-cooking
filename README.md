@@ -22,12 +22,12 @@ I've set up many CI servers in my day.  It is usually the first thing I do at a 
     * Installs common ruby plugins.
  * Gitosis (see below on how to use)
  * Gerrit - right now it is set to proxy behind nginx, but it would not be hard to change.
+ * Headless browser - Xvfb (in memory headless xserver) and Firefox are ready to go (see [FAQ] for info on how to use it)
 
 ## TODO
  * Cloud bootstrapping script
  * Documentation
  * Allow Hudson to use the RVM command without requiring every job to source the rvm script each time.
- * Maybe add a recipe for [headless browser support](http://blog.kabisa.nl/2010/05/24/headless-cucumbers-and-capybaras-with-selenium-and-hudson/)?
  * Create/publish base vagrant image?
 
    * Maybe have a base image with dummy Hudson/Gerrit projects setup to give idea of workflow?
