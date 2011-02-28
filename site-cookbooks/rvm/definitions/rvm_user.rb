@@ -57,7 +57,7 @@ define :rvm_user, :user => nil, :home => nil, :rubies => [], :gems => {}, :packa
   # TODO: if packages are installed we need to use them when installing the rubies...
 
   execute "update #{params[:user]}'s rvm to the latest stable version" do
-    command run_as_rvm_user["rvm update -—head"]
+    command run_as_rvm_user["rvm update --head"]
   end
 
   # TODO: use 'rmv list' to uninstall the uneeded ones and install the new ones
